@@ -1,5 +1,12 @@
 import webbrowser
 import vocabolario
+import pyscreenshot as ImageGrab
+
+
+def takeScreenShot():
+    im = ImageGrab.grab(bbox=(0, 0, 510, 510))
+    im.save('./screenshots/test.png')
+    return
 
 
 def removeArticloli(params):
