@@ -2,11 +2,20 @@ import webbrowser
 import vocabolario
 import pyscreenshot as ImageGrab
 
+from PIL import Image
+from pytesseract import image_to_string
+
 
 def takeScreenShot():
-    im = ImageGrab.grab(bbox=(0, 0, 510, 510))
-    im.save('./screenshots/test.png')
+    im = ImageGrab.grab(bbox=(230, 200, 800, 400))
+    im.save('./screenshots/screen.png')
+    # im.show()
     return
+
+
+def imageToText():
+    text = image_to_string(Image.open('./screenshots/screen.png'))
+    return text
 
 
 def removeArticloli(params):
