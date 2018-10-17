@@ -1,38 +1,50 @@
 import webbrowser
 import vocabolario
+import cv2
+import os
 import pyscreenshot as ImageGrab
-
-from PIL import Image
 from pytesseract import image_to_string
+from PIL import Image
 
 
 def takeScreenShot():
-    im = ImageGrab.grab(bbox=(230, 200, 800, 400))
+    im = ImageGrab.grab(bbox=(0, 25, 495, 900))
     im.save('./screenshots/screen.png')
     # im.show()
     return
 
 
+def preprocessImage():
+    image = cv2.imread('./screenshots/screen.png')
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    gray = cv2.medianBlur(gray, 3)
+    filename = './screenshots/gray.png'
+    # filename = './screenshots/{}.png'.format(os.getpid())
+    cv2.imwrite(filename, gray)
+    return
+
+
 def imageToText():
-    text = image_to_string(Image.open('./screenshots/screen.png'))
+    text = image_to_string(Image.open('./screenshots/gray.png'))
     return text
 
 
-def removeArticloli(params):
-    articoli = vocabolario.articoli
-    return [x for x in params if x not in articoli]
-
-
-def removepPreposizioni(params):
-    preposizioni = vocabolario.preposizioni
-    return [x for x in params if x not in preposizioni]
-
-
-def removeAvverbi(params):
-    avverbi = vocabolario.avverbi
-    return [x for x in params if x not in avverbi]
-
-
+# def removeArticloli(params):
+#     articoli = vocabolario.articoli
+#     return [x for x in params if x not in articoli]
+#
+#
+# def removepPreposizioni(params):
+#     preposizioni = vocabolario.preposizioni
+#     return [x for x in params if x not in preposizioni]
+#
+#
+# def removeAvverbi(params):
+#     avverbi = vocabolario.avverbi
+#     return [x for x in params if x not in avverbi]
+#
+#
 def openChrome(url):
     chrome_path = 'open -a /Applications/Google\ Chrome.app %s'
     webbrowser.get(chrome_path).open(url)
