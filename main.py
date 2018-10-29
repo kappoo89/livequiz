@@ -1,14 +1,15 @@
 #modules
 import modules
 
-modules.takeScreenShot()
+# modules.takeScreenShot()
 modules.preprocessImage()
+
 modules.imageToText()
-#
-# # str = 'come si chiama Un gruppo di pesci'
-# str = modules.imageToText().encode('utf-8')
-# str = str.replace('\n', ' ')
+#str = modules.imageToText().encode('utf-8')
 # str = str.lower()
+#print(str)
+# str = str.replace('\n', ' ')
+
 #
 # params = str.split(' ')
 #

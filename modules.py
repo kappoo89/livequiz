@@ -2,8 +2,9 @@ import webbrowser
 import vocabolario
 import cv2
 import os
+import pytesseract
+
 import pyscreenshot as ImageGrab
-from pytesseract import image_to_string
 from PIL import Image
 
 
@@ -26,8 +27,14 @@ def preprocessImage():
 
 
 def imageToText():
-    text = image_to_string(Image.open('./screenshots/gray.png'))
-    return text
+    tessdata_dir_config = r'--tessdata-dir "/usr/local/Cellar/tesseract/3.05.02/share/tessdata"'
+    text = pytesseract.image_to_string(
+        Image.open('./screenshots/gray.png'),
+        lang='ita',
+        config=tessdata_dir_config)
+    print(text)
+
+    # return text
 
 
 # def removeArticloli(params):
